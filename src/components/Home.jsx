@@ -3,6 +3,7 @@ import Navbar from './Navbar'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { CiCircleInfo } from "react-icons/ci";
+import TitleCard from './TitleCard';
 
 const Home = () => {
   return (
@@ -37,7 +38,7 @@ const Home = () => {
         </div>
 
         {/* More info button */}
-        <div className="flex flex-row items-center justify-center gap-2 px-4 py-2 w-32 bg-white/40  rounded text-black hover:bg-white/20">
+        <div className="flex flex-row items-center justify-center gap-2 px-4 py-2 w-32 bg-white/30  rounded text-black hover:bg-white/20">
           <button>
             <CiCircleInfo className="text-xl" strokeWidth={3} />
           </button>
@@ -46,8 +47,9 @@ const Home = () => {
       </div>
     </div>
   </div>
+  <TitleCard/>
 </div>
-
+ 
 
  </>
   )
