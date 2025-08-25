@@ -8,6 +8,9 @@ import image7 from '../assets/card7.jpg'
 import image8 from '../assets/card8.jpg'
 import image9 from '../assets/card9.jpg'
 import image10 from '../assets/card10.jpg'
+import image11 from '../assets/card11.jpg'
+import image12 from '../assets/card12.webp'
+
 
 
     const cards=[
@@ -32,6 +35,10 @@ import image10 from '../assets/card10.jpg'
         name:"Leo"},
         { im:image10,
         name:"Zero"},
+        { im:image11,
+       },
+       {im:image12},
+       
 
     ]
 

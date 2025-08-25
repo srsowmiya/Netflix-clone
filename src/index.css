@@ -12,3 +12,25 @@ body {
     font-family: 'Poppins',sans-serif;
 
 }
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.section-title{
+  padding-left: 3rem;
+}
+
+.talign{
+  padding: 3px;
+}
+
+.alignfooter{
+  margin-top: 50px;
+  margin-left: 200px;
+}
+

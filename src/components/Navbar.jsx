@@ -6,9 +6,9 @@ import { FaBell, FaUser } from "react-icons/fa";
 const Navbar = () => {
   return (
     <nav
-      className=" fixed top-0 left-0 w-full z-50 transition-colors duration-300 bg-transparent"
+      className=" fixed top-0 left-0  w-full z-50 transition-colors duration-300 bg-transparent"
     >
-      <div className=" w-full flex items-center justify-around h-16">
+      <div className=" w-full flex items-center justify-between h-16">
         <div className="flex items-center gap-6">
           <img src="/Netflix1-logo.png" alt="Netflix Logo" className="h-14" />
           <a href="#" className="hover:text-gray-300">Home</a>

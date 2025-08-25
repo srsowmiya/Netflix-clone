@@ -4,11 +4,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { CiCircleInfo } from "react-icons/ci";
 import TitleCard from './TitleCard';
+import Footer from './Footer';
 
 const Home = () => {
   return (
     <>
-   
  <div className="">
   <Navbar />
   <div className="hero relative">
@@ -47,7 +47,11 @@ const Home = () => {
       </div>
     </div>
   </div>
-  <TitleCard/>
+  <TitleCard name="Popular on Netflix"/>
+  <TitleCard name="We Think you'll love this"/>
+  <TitleCard name="Indian movies"/>
+  <TitleCard name="k-drama"/>
+  <Footer/>
 </div>
  
 
