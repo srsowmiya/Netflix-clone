@@ -31,6 +31,13 @@ body {
 
 .alignfooter{
   margin-top: 50px;
-  margin-left: 200px;
+  margin-left: 250px;
+  margin-bottom: 20px;
+}
+.iconResize{
+  padding-bottom: 14px;
+}
+.bottomT{
+  padding-top: 24px;
 }
 

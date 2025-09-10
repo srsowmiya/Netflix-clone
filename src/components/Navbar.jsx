@@ -2,6 +2,8 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
 import { FaBell, FaUser } from "react-icons/fa";
+import { Link } from "react-router-dom";
+
 
 const Navbar = () => {
   return (
@@ -21,7 +23,7 @@ const Navbar = () => {
         <div className="flex items-center gap-6 mr-20">
           <a href="#"><FontAwesomeIcon icon={faMagnifyingGlass} className="hover:text-gray-300" /></a>
           <a href="#"><FaBell className="hover:text-gray-300" /></a>
-          <a href="#"><FaUser className="hover:text-gray-300" /></a>
+          <Link to="/login"><FaUser className="hover:text-gray-300" /></Link>
         </div>
       </div>
     </nav>
