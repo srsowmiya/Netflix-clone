@@ -5,8 +5,12 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { CiCircleInfo } from "react-icons/ci";
 import TitleCard from "./TitleCard";
 import Footer from "./Footer";
+import Player from "./Player";
+import { Link } from "react-router-dom";
 
 const Home = () => {
+  
+
   return (
     <>
       <div className="">
@@ -30,10 +34,14 @@ const Home = () => {
             {/* Buttons */}
             <div className="flex flex-row gap-3 ">
               {/* Play button */}
-              <div className="flex flex-row items-center justify-center gap-2 h-10 px-4 w-32 bg-white rounded hover:bg-gray-200">
-                <FontAwesomeIcon icon={faPlay} className="text-black text-xl" />
-                <p className="text-black font-medium leading-none">Play</p>
-              </div>
+             <Link 
+  to="/player" 
+  className="flex flex-row items-center justify-center gap-2 h-10 px-4 w-32 bg-white rounded hover:bg-gray-200"
+>
+  <FontAwesomeIcon icon={faPlay} className="text-black text-xl" />
+  <p className="text-black font-medium leading-none">Play</p>
+</Link>
+
 
               {/* More info button */}
               <div className="flex flex-row items-center justify-center gap-2 px-4 py-2 w-32 bg-white/30  rounded text-black hover:bg-white/20">
