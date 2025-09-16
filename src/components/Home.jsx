@@ -34,13 +34,14 @@ const Home = () => {
             {/* Buttons */}
             <div className="flex flex-row gap-3 ">
               {/* Play button */}
-             <Link 
-  to="/player" 
+          <Link 
+  to="/player/550"   // 👈 fixed featured movie ID
   className="flex flex-row items-center justify-center gap-2 h-10 px-4 w-32 bg-white rounded hover:bg-gray-200"
 >
   <FontAwesomeIcon icon={faPlay} className="text-black text-xl" />
   <p className="text-black font-medium leading-none">Play</p>
 </Link>
+
 
 
               {/* More info button */}

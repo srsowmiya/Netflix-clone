@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+import { Link } from "react-router-dom";
 
 const TitleCard = (props) => {
   const scrollRef = useRef(null);
@@ -71,7 +72,9 @@ const TitleCard = (props) => {
             <p className="text-gray-400">Loading...</p>
           ) : movies.length > 0 ? (
             movies.map((movie) => (
-              <div key={movie.id} className="flex-shrink-0 w-60 group relative">
+              
+
+              <Link  to={`/player/${movie.id}`}key={movie.id} className="flex-shrink-0 w-60 group relative">
                 {/* Image */}
                 <img
                   src={
@@ -86,7 +89,8 @@ const TitleCard = (props) => {
                 />
 
               
-              </div>
+              </Link>
+      
             ))
           ) : (
             <p className="text-gray-400">No movies found.</p>

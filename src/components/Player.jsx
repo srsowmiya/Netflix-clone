@@ -1,33 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Player = () => {
+  const { id } = useParams(); // ✅ Grab movie ID from URL
+  const navigate = useNavigate();
   const [apidata, setApidata] = useState(null);
-  
 
   const options = {
-    method: 'GET',
+    method: "GET",
     headers: {
-      accept: 'application/json',
-      Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNzFkMTRiOTA4OWIwYzg0NTg1ODY2NjBkNTg2Nzg3NSIsIm5iZiI6MTc1NjM3NzQ5Ni42NzcsInN1YiI6IjY4YjAzMTk4ZjkwMzYwMDZhYmZhOTc4NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.S7Zg89Y5jmogBFOxfwzt61vpNwvYbC0qONUWRdiISho'
-    }
+      accept: "application/json",
+      Authorization:
+        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNzFkMTRiOTA4OWIwYzg0NTg1ODY2NjBkNTg2Nzg3NSIsIm5iZiI6MTc1NjM3NzQ5Ni42NzcsInN1YiI6IjY4YjAzMTk4ZjkwMzYwMDZhYmZhOTc4NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.S7Zg89Y5jmogBFOxfwzt61vpNwvYbC0qONUWRdiISho",
+    },
   };
 
   useEffect(() => {
-    fetch('https://api.themoviedb.org/3/movie/550/videos?language=en-US', options)
-      .then(response => response.json())
-      .then(response => {
+    if (!id) return;
+
+    fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, options)
+      .then((response) => response.json())
+      .then((response) => {
         if (response.results && response.results.length > 0) {
-          setApidata(response.results[0]); // take the first video
+          setApidata(response.results[0]); // take first video
         }
       })
-      .catch(err => console.error(err));
-  }, []);
+      .catch((err) => console.error(err));
+  }, [id]);
 
   return (
     <div className="h-screen bg-black text-white relative">
       {/* Back Button */}
-      <IoMdArrowRoundBack className="h-10 text-4xl absolute top-4 left-4 z-10 cursor-pointer" />
+      <IoMdArrowRoundBack
+        className="h-10 text-4xl absolute top-4 left-4 z-10 cursor-pointer"
+        onClick={() => navigate(-1)} // ✅ go back
+      />
 
       {/* Responsive YouTube Embed */}
       <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
@@ -43,15 +51,20 @@ const Player = () => {
                 top: 0,
                 left: 0,
                 width: "100%",
-                height: "100%"
+                height: "100%",
               }}
             ></iframe>
 
-            {/* Video Info */}
             <div className="mt-4 p-2">
-              <p><b>Name:</b> {apidata.name}</p>
-              <p><b>Type:</b> {apidata.type}</p>
-              <p><b>Published At:</b> {apidata.published_at}</p>
+              <p>
+                <b>Name:</b> {apidata.name}
+              </p>
+              <p>
+                <b>Type:</b> {apidata.type}
+              </p>
+              <p>
+                <b>Published At:</b> {apidata.published_at}
+              </p>
             </div>
           </>
         )}
