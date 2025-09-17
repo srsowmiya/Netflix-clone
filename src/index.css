@@ -41,3 +41,16 @@ body {
   padding-top: 24px;
 }
 
+.change-color {
+  background-color:black; /* Change to your desired color */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.change-padding {
+  padding-right: 4.5rem; /* Adjust the value as needed */
+}
+
+.change2-padding{
+  padding-left: 4rem;
+}
+

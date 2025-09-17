@@ -42,14 +42,12 @@ const Home = () => {
   <p className="text-black font-medium leading-none">Play</p>
 </Link>
 
-
-
               {/* More info button */}
               <div className="flex flex-row items-center justify-center gap-2 px-4 py-2 w-32 bg-white/30  rounded text-black hover:bg-white/20">
                 <button>
-                  <CiCircleInfo className="text-xl" strokeWidth={3} />
+                  <CiCircleInfo className="text-xl text-white" strokeWidth={3} />
                 </button>
-                <p className="capitalize font-medium leading-none">More Info</p>
+                <p className="capitalize font-medium leading-none text-white">More Info</p>
               </div>
             </div>
           </div>
