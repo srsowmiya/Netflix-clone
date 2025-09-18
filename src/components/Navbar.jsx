@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMagnifyingGlass } from "@fortawesome/free-solid-svg-icons";
-import { FaBell, FaUser } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { FaBell } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
+import { auth } from "../firebase";
+import { signOut } from "firebase/auth";
 
 const Navbar = () => {
   const navii = useRef();
@@ -25,6 +26,15 @@ const Navbar = () => {
     };
   }, []);
 
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+      console.log("User signed out");
+    } catch (error) {
+      console.error("Error signing out:", error);
+    }
+  };
+
   return (
     <nav
       ref={navii}
@@ -45,20 +55,25 @@ const Navbar = () => {
         {/* Right side */}
         <div className="flex items-center gap-6 mr-6 change-padding">
           <a href="#">
-            <FontAwesomeIcon icon={faMagnifyingGlass} className="hover:text-gray-300 " />
+            <FontAwesomeIcon icon={faMagnifyingGlass} className="hover:text-gray-300" />
           </a>
           <a href="#">
             <FaBell className="hover:text-gray-300" />
           </a>
-           <div className="flex items-center gap-2 relative group cursor-pointer">
-      <img src="/Netflix-avatar.png" alt="avatar" className="h-8 rounded" />
-      <IoMdArrowDropdown className="text-xl" />
+          <div className="flex items-center gap-2 relative group cursor-pointer">
+            <img src="/Netflix-avatar.png" alt="avatar" className="h-8 rounded" />
+            <IoMdArrowDropdown className="text-xl" />
 
-      {/* Dropdown menu */}
-      <div className="absolute top-full right-0 mt-2 h-15 w-30 bg-black/70 text-underline text-white p-4 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
-        <p className="cursor-pointer hover:underline">Sign out of Netflix</p>
-      </div>
-    </div>
+            {/* Dropdown menu */}
+            <div className="absolute top-full right-0 mt-2 h-15 w-30 bg-black/70 text-white p-4 rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10">
+              <p
+                onClick={handleLogout}
+                className="cursor-pointer hover:underline"
+              >
+                Sign out of Netflix
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
