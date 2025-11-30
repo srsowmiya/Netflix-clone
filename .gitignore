@@ -1,0 +1,16 @@
+# FRONTEND IGNORE
+Frontend/node_modules/
+Frontend/dist/
+Frontend/dist-ssr/
+Frontend/*.log
+Frontend/*.local
+
+# BACKEND IGNORE
+Backend/venv/
+Backend/__pycache__/
+Backend/*.pyc
+Backend/.env
+
+# SYSTEM FILES
+.DS_Store
+Thumbs.db
