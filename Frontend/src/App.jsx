@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log("Logged in", user);
+        console.log("Logged in",    user);
         navigate("/");
       } else {
         console.log("Logged out");
