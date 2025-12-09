@@ -6,7 +6,7 @@ import { CiCircleInfo } from "react-icons/ci";
 import TitleCard from "./TitleCard";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
-import MoodRecommender from  "./MoodREcommender"   
+import MoodRecommender from  "./MoodRecommender"   
 
 const Home = () => {
   return (

@@ -5,7 +5,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Player from "./components/Player";
-import MoodRecommender from "./components/MoodREcommender";  
+import MoodRecommender from "./components/MoodRecommender";  
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
 
@@ -31,8 +31,6 @@ const App = () => {
       <Route path="/signup" element={<Signup />} />
       <Route path="/player" element={<Player />} />
       <Route path="/player/:id" element={<Player />} />
-
-      {/* ⭐ NEW MOOD ROUTE */}
       <Route path="/mood" element={<MoodRecommender />} />
     </Routes>
   );

@@ -7,22 +7,23 @@ const MoodRecommender = () => {
   const [loading, setLoading] = useState(false);
 
   const submitMood = async () => {
-    if (!mood.trim()) return;
+  if (!mood.trim()) return;
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      const res = await axios.post("http://localhost:8000/ai/mood", {
-        mood: mood,
-      });
+  try {
+    const res = await axios.post("http://127.0.0.1:8000/ai/mood", {
+      mood: mood,
+    });
 
-      setResults(res.data);
-    } catch (err) {
-      console.error("Error:", err);
-    }
+    setResults(res.data);
+  } catch (err) {
+    console.error("Error:", err);
+  }
 
-    setLoading(false);
-  };
+  setLoading(false);
+};
+
 
   return (
     <div style={{ padding: "20px", color: "white" }}>
