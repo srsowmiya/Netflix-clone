@@ -5,9 +5,9 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import Player from "./components/Player";
-import MoodRecommender from "./components/MoodRecommender";  
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./firebase";
+import MoodRecommender  from "./components/MoodREcommender";
 
 const App = () => {
   const navigate = useNavigate();
