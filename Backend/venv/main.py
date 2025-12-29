@@ -7,17 +7,18 @@ import os
 import json
 import re
 
-# Load environment variables
+# ---------------- LOAD ENV ----------------
 load_dotenv()
 
 TMDB_KEY = os.getenv("TMDB_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
-if not TMDB_KEY or not OPENAI_API_KEY:
-    raise RuntimeError("TMDB_KEY or OPENAI_API_KEY missing")
+if not TMDB_KEY:
+    raise RuntimeError("TMDB_KEY missing")
 
-client = OpenAI(api_key=OPENAI_API_KEY)
+client = OpenAI(api_key=OPENAI_API_KEY) if OPENAI_API_KEY else None
 
+# ---------------- APP ----------------
 app = FastAPI()
 
 app.add_middleware(
@@ -31,7 +32,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# TMDB genre name → ID mapping
+# ---------------- TMDB GENRE MAP ----------------
 GENRE_MAP = {
     "Action": 28,
     "Adventure": 12,
@@ -46,19 +47,36 @@ GENRE_MAP = {
     "Thriller": 53,
 }
 
+# ---------------- FALLBACK MOOD MAP ----------------
+FALLBACK_MOOD_MAP = {
+    "happy": (["Comedy", "Adventure"], "Feel-good picks for you"),
+    "sad": (["Drama", "Romance"], "Emotional picks for you"),
+    "angry": (["Action", "Thriller"], "High-energy picks for you"),
+    "romantic": (["Romance"], "Romantic picks for you"),
+    "scared": (["Horror", "Thriller"], "Spooky picks for you"),
+    "excited": (["Action", "Adventure"], "Exciting picks for you"),
+}
+
+# ---------------- ROUTES ----------------
 @app.get("/")
 def home():
     return {"message": "Backend running successfully"}
 
 @app.post("/ai/mood")
 def mood_recommendation(data: dict):
-    try:
-        mood_text = data.get("mood")
-        if not mood_text:
-            raise HTTPException(status_code=400, detail="Mood is required")
+    mood_text = data.get("mood", "").lower().strip()
 
-        prompt = f"""
-Return ONLY valid JSON. No explanation. No markdown.
+    if not mood_text:
+        raise HTTPException(status_code=400, detail="Mood is required")
+
+    genres = []
+    label = "Recommended for you"
+
+    # ---------- TRY OPENAI ----------
+    if client:
+        try:
+            prompt = f"""
+Return ONLY valid JSON.
 
 Mood: "{mood_text}"
 
@@ -69,63 +87,79 @@ Format:
 }}
 """
 
-        # ---- OpenAI call ----
-        response = client.responses.create(
-            model="gpt-5.1",
-            input=prompt
-        )
+            response = client.responses.create(
+                model="gpt-5.1",
+                input=prompt
+            )
 
-        # SAFELY extract text
-        raw_text = ""
-        for item in response.output:
-            if item["type"] == "message":
-                for c in item["content"]:
-                    if c["type"] == "output_text":
-                        raw_text += c["text"]
+            raw_text = ""
 
-        raw_text = raw_text.strip()
-        print("AI RAW RESPONSE:\n", raw_text)
+            for item in response.output:
+                if item["type"] == "message":
+                    for c in item["content"]:
+                        if c["type"] == "output_text":
+                            raw_text += c["text"]
 
-        # Extract JSON only
-        match = re.search(r"\{.*\}", raw_text, re.DOTALL)
-        if not match:
-            raise HTTPException(status_code=500, detail="AI did not return JSON")
+            match = re.search(r"\{.*\}", raw_text, re.DOTALL)
+            parsed = json.loads(match.group())
 
-        parsed = json.loads(match.group())
+            genres = parsed.get("genres", [])
+            label = parsed.get("label", label)
 
-        genres = parsed.get("genres", [])
-        label = parsed.get("label", "Recommended for you")
+            print("✅ AI USED:", genres)
 
-        # Convert genre names → IDs
-        genre_ids = []
-        for g in genres:
-            g_clean = g.strip().title()
-            if g_clean in GENRE_MAP:
-                genre_ids.append(str(GENRE_MAP[g_clean]))
+        except Exception as e:
+            print("⚠️ OPENAI FAILED → FALLBACK:", e)
 
-        if not genre_ids:
-            return {
-                "label": label,
-                "genres": genres,
-                "results": []
-            }
+    # ---------- FALLBACK LOGIC ----------
+    if not genres:
+        for key in FALLBACK_MOOD_MAP:
+            if key in mood_text:
+                genres, label = FALLBACK_MOOD_MAP[key]
+                break
+        else:
+            genres = ["Comedy"]
+            label = "Popular picks for you"
 
-        tmdb_url = (
-            "https://api.themoviedb.org/3/discover/movie"
-            f"?api_key={TMDB_KEY}"
-            f"&with_genres={','.join(genre_ids)}"
-        )
+        print("🟡 FALLBACK USED:", genres)
 
-        tmdb_res = requests.get(tmdb_url).json()
+    # ---------- PICK PRIMARY GENRE (CRITICAL FIX) ----------
+    primary_genre_id = None
+    for g in genres:
+        if g in GENRE_MAP:
+            primary_genre_id = str(GENRE_MAP[g])
+            break
 
+    if not primary_genre_id:
         return {
             "label": label,
             "genres": genres,
-            "results": tmdb_res.get("results", [])
+            "results": []
         }
 
-    except HTTPException:
-        raise
+    # ---------- TMDB CALL (SAFE) ----------
+    tmdb_url = (
+        "https://api.themoviedb.org/3/discover/movie"
+        f"?api_key={TMDB_KEY}"
+        f"&with_genres={primary_genre_id}"
+        f"&sort_by=popularity.desc"
+    )
+
+    try:
+        tmdb_response = requests.get(tmdb_url, timeout=10)
+
+        if tmdb_response.status_code != 200:
+            print("TMDB ERROR:", tmdb_response.text)
+            raise HTTPException(status_code=502, detail="TMDB service error")
+
+        tmdb_res = tmdb_response.json()
+
     except Exception as e:
-        print("BACKEND ERROR:", e)
-        raise HTTPException(status_code=500, detail=str(e))
+        print("TMDB REQUEST FAILED:", e)
+        raise HTTPException(status_code=502, detail="Failed to fetch movies")
+
+    return {
+        "label": label,
+        "genres": genres,
+        "results": tmdb_res.get("results", [])
+    }

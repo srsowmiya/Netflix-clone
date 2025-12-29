@@ -6,7 +6,6 @@ Frontend/*.log
 Frontend/*.local
 
 # BACKEND IGNORE
-Backend/venv/
 Backend/__pycache__/
 Backend/*.pyc
 Backend/.env
