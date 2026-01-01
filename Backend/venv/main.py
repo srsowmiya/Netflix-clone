@@ -13,6 +13,8 @@ load_dotenv()
 TMDB_KEY = os.getenv("TMDB_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
+print("🔥 TMDB_KEY LOADED:", TMDB_KEY)
+
 if not TMDB_KEY:
     raise RuntimeError("TMDB_KEY missing")
 
