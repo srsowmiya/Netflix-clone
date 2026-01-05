@@ -7,6 +7,10 @@ import TitleCard from "./TitleCard";
 import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import MoodRecommender from "./MoodREcommender";
+import CuratedRow from "./CuratedRow";
+import { curatedMovies } from "../data/curatedMovies";
+
+
 
 const Home = () => {
   return (
@@ -58,22 +62,11 @@ const Home = () => {
       </section>
 
       {/* Movie Sections */}
-      <TitleCard
-        name="Popular on Netflix"
-        url="https://api.themoviedb.org/3/movie/popular?language=en-US&page=1"
-      />
-      <TitleCard
-        name="Now Playing"
-        url="https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1"
-      />
-      <TitleCard
-        name="Top Rated"
-        url="https://api.themoviedb.org/3/movie/top_rated?language=en-US&page=1"
-      />
-      <TitleCard
-        name="Upcoming"
-        url="https://api.themoviedb.org/3/movie/upcoming?language=en-US&page=1"
-      />
+    {/* Curated Movie Sections */}
+    <CuratedRow title="Popular on Netflix" movies={curatedMovies} />
+<CuratedRow title="Now Playing" movies={curatedMovies} />
+<CuratedRow title="Top Rated" movies={curatedMovies} />
+<CuratedRow title="Upcoming" movies={curatedMovies} />
 
       <Footer />
     </div>
