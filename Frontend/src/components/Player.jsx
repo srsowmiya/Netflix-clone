@@ -1,74 +1,35 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { useParams, useNavigate } from "react-router-dom";
 
 const Player = () => {
-  const { id } = useParams(); // ✅ Grab movie ID from URL
+  const { videoId } = useParams();
   const navigate = useNavigate();
-  const [apidata, setApidata] = useState(null);
 
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization:
-        "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwNzFkMTRiOTA4OWIwYzg0NTg1ODY2NjBkNTg2Nzg3NSIsIm5iZiI6MTc1NjM3NzQ5Ni42NzcsInN1YiI6IjY4YjAzMTk4ZjkwMzYwMDZhYmZhOTc4NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.S7Zg89Y5jmogBFOxfwzt61vpNwvYbC0qONUWRdiISho",
-    },
-  };
-
-  useEffect(() => {
-    if (!id) return;
-
-    fetch(`https://api.themoviedb.org/3/movie/${id}/videos?language=en-US`, options)
-      .then((response) => response.json())
-      .then((response) => {
-        if (response.results && response.results.length > 0) {
-          setApidata(response.results[0]); // take first video
-        }
-      })
-      .catch((err) => console.error(err));
-  }, [id]);
+  if (!videoId) {
+    return (
+      <div className="h-screen bg-black text-white flex items-center justify-center">
+        <p>Video not found</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="h-screen bg-black text-white relative">
+    <div className="h-screen bg-black relative">
       {/* Back Button */}
       <IoMdArrowRoundBack
-        className="h-10 text-4xl absolute top-4 left-4 z-10 cursor-pointer"
-        onClick={() => navigate(-1)} // ✅ go back
+        onClick={() => navigate(-1)}
+        className="absolute top-4 left-4 text-4xl text-white cursor-pointer z-10 hover:scale-110 transition"
       />
 
-      {/* Responsive YouTube Embed */}
-      <div style={{ position: "relative", paddingBottom: "56.25%", height: 0 }}>
-        {apidata && (
-          <>
-            <iframe
-              src={`https://www.youtube.com/embed/${apidata.key}?autoplay=1&mute=1`}
-              frameBorder="0"
-              allowFullScreen
-              title={apidata.name}
-              style={{
-                position: "absolute",
-                top: 0,
-                left: 0,
-                width: "100%",
-                height: "100%",
-              }}
-            ></iframe>
-
-            <div className="mt-4 p-2">
-              <p>
-                <b>Name:</b> {apidata.name}
-              </p>
-              <p>
-                <b>Type:</b> {apidata.type}
-              </p>
-              <p>
-                <b>Published At:</b> {apidata.published_at}
-              </p>
-            </div>
-          </>
-        )}
-      </div>
+      {/* YouTube Player */}
+      <iframe
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
+        title="YouTube Player"
+        allow="autoplay; encrypted-media"
+        allowFullScreen
+        className="w-full h-full"
+      />
     </div>
   );
 };

@@ -50,12 +50,12 @@ export const topRatedMovies = [
 export const upcomingMovies = [
   { id: 31, title: "Avatar 3", videoId: "d9MyW72ELq0", thumbnail: "https://img.youtube.com/vi/d9MyW72ELq0/hqdefault.jpg" },
   { id: 32, title: "Deadpool 3", videoId: "Idh8n5XuYIA", thumbnail: "https://img.youtube.com/vi/Idh8n5XuYIA/hqdefault.jpg" },
-  { id: 33, title: "Fantastic Four", videoId: "iQWk9n8tcxE", thumbnail: "https://img.youtube.com/vi/iQWk9n8tcxE/hqdefault.jpg" },
   { id: 34, title: "Blade", videoId: "gEJVp8BfZFc", thumbnail: "https://img.youtube.com/vi/gEJVp8BfZFc/hqdefault.jpg" },
-  { id: 35, title: "Superman Legacy", videoId: "NnOr8lZzyC0", thumbnail: "https://img.youtube.com/vi/NnOr8lZzyC0/hqdefault.jpg" },
   { id: 36, title: "Avengers: Secret Wars", videoId: "eOrNdBpGMv8", thumbnail: "https://img.youtube.com/vi/eOrNdBpGMv8/hqdefault.jpg" },
   { id: 37, title: "Star Wars: New Order", videoId: "8Qn_spdM5Zg", thumbnail: "https://img.youtube.com/vi/8Qn_spdM5Zg/hqdefault.jpg" },
   { id: 38, title: "Jurassic World Rebirth", videoId: "fb5ELWi-ekk", thumbnail: "https://img.youtube.com/vi/fb5ELWi-ekk/hqdefault.jpg" },
+   { id: 33, title: "Fantastic Four", videoId: "iQWk9n8tcxE", thumbnail: "https://img.youtube.com/vi/iQWk9n8tcxE/hqdefault.jpg" },
   { id: 39, title: "The Batman Part II", videoId: "U-q6R1r7VRM", thumbnail: "https://img.youtube.com/vi/U-q6R1r7VRM/hqdefault.jpg" },
   { id: 40, title: "Mission Impossible 8", videoId: "n0yI9Q5q_lE", thumbnail: "https://img.youtube.com/vi/n0yI9Q5q_lE/hqdefault.jpg" },
+   { id: 35, title: "Superman Legacy", videoId: "NnOr8lZzyC0", thumbnail: "https://img.youtube.com/vi/NnOr8lZzyC0/hqdefault.jpg" },
 ];
