@@ -2,6 +2,9 @@ import React, { useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
+import fallbackImg from "../assets/card3.jpg";
+
+
 
 const CuratedRow = ({ title, movies }) => {
   const scrollRef = useRef(null);
@@ -43,14 +46,27 @@ const CuratedRow = ({ title, movies }) => {
                 key={movie.id}
                 className="flex-shrink-0 w-60 group relative"
               >
-                <img
-                  src={movie.thumbnail}
-                  alt={movie.title}
-                  className="rounded-md shadow-md transition-transform 
-                             duration-300 ease-in-out 
-                             group-hover:scale-105 group-hover:shadow-xl 
-                             object-cover h-32 w-full"
-                />
+          <img
+  src={`https://img.youtube.com/vi/${movie.videoId}/hqdefault.jpg`}
+  alt={movie.title}
+  onLoad={(e) => {
+    if (e.target.naturalWidth <= 120) {
+      e.target.src = fallbackImg;
+    }
+  }}
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.src = fallbackImg;
+  }}
+  className="rounded-md object-cover h-32 w-full
+             transition-transform duration-300
+             group-hover:scale-105"
+/>
+
+
+
+
+
               </Link>
             ))
           ) : (

@@ -8,7 +8,14 @@ import Footer from "./Footer";
 import { Link } from "react-router-dom";
 import MoodRecommender from "./MoodREcommender";
 import CuratedRow from "./CuratedRow";
-import { curatedMovies } from "../data/curatedMovies";
+import {
+  popularMovies,
+  nowPlayingMovies,
+  topRatedMovies,
+  upcomingMovies,
+} from "../data/curatedMovies";
+
+
 
 
 
@@ -63,10 +70,11 @@ const Home = () => {
 
       {/* Movie Sections */}
     {/* Curated Movie Sections */}
-    <CuratedRow title="Popular on Netflix" movies={curatedMovies} />
-<CuratedRow title="Now Playing" movies={curatedMovies} />
-<CuratedRow title="Top Rated" movies={curatedMovies} />
-<CuratedRow title="Upcoming" movies={curatedMovies} />
+ <CuratedRow title="Popular on Netflix" movies={popularMovies} />
+<CuratedRow title="Now Playing" movies={nowPlayingMovies} />
+<CuratedRow title="Top Rated" movies={topRatedMovies} />
+<CuratedRow title="Upcoming" movies={upcomingMovies} />
+
 
       <Footer />
     </div>
