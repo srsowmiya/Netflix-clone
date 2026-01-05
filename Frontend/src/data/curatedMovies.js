@@ -59,3 +59,58 @@ export const upcomingMovies = [
   { id: 40, title: "Mission Impossible 8", videoId: "n0yI9Q5q_lE", thumbnail: "https://img.youtube.com/vi/n0yI9Q5q_lE/hqdefault.jpg" },
    { id: 35, title: "Superman Legacy", videoId: "NnOr8lZzyC0", thumbnail: "https://img.youtube.com/vi/NnOr8lZzyC0/hqdefault.jpg" },
 ];
+
+export const curatedByMood = {
+  happy: [
+    {
+      id: 1,
+      title: "Avengers: Infinity War",
+      videoId: "6ZfuNTqbHE8",
+    },
+    {
+      id: 2,
+      title: "Spider-Man: No Way Home",
+      videoId: "JfVOs4VSpmA",
+    },
+  ],
+
+  sad: [
+    {
+      id: 3,
+      title: "Titanic",
+      videoId: "2e-eXJ6HgkQ",
+    },
+    {
+      id: 4,
+      title: "The Fault in Our Stars",
+      videoId: "9ItBvH5J6ss",
+    },
+  ],
+
+  excited: [
+    {
+      id: 5,
+      title: "John Wick",
+      videoId: "2AUmvWm5ZDQ",
+    },
+    {
+      id: 6,
+      title: "Mad Max: Fury Road",
+      videoId: "hEJnMQG9ev8",
+    },
+  ],
+
+  relaxed: [
+    {
+      id: 7,
+      title: "Forrest Gump",
+      videoId: "bLvqoHBptjg",
+    },
+    {
+      id: 8,
+      title: "The Intern",
+      videoId: "ZU3Xban0Y6A",
+    },
+  ],
+};
+

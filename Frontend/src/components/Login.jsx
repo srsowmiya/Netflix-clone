@@ -1,17 +1,19 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { login } from "../firebase";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      await login(email, password); // ✅ wait for firebase
+      await login(email, password); // ✅ Firebase login
       console.log("✅ Logged in successfully!");
-      // TODO: redirect to home page
+      navigate("/"); // ✅ redirect to home
     } catch (error) {
       console.error("❌ Login error:", error.message);
       alert(error.message);

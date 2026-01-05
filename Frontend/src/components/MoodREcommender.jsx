@@ -1,104 +1,77 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import CuratedRow from "./CuratedRow";
+// Ensure the path below is correct and curatedMovies.js uses a NAMED export
+import { curatedByMood } from "../data/curatedMovies";
 
 const MoodRecommender = () => {
   const [mood, setMood] = useState("");
-  const [results, setResults] = useState(null);
+  const [category, setCategory] = useState(null);
   const [loading, setLoading] = useState(false);
-  const navigate = useNavigate();
 
   const submitMood = async () => {
     if (!mood.trim()) return;
 
     setLoading(true);
-    setResults(null);
+    setCategory(null);
 
     try {
       const res = await axios.post("http://127.0.0.1:8000/ai/mood", {
-        mood: mood,
+        mood: mood.toLowerCase(), // Normalizing input
       });
-      setResults(res.data);
+
+      // Assuming your API returns { category: "happy" }
+      setCategory(res.data.category);
     } catch (err) {
-      console.error("Mood API error:", err);
+      console.error("Mood API error", err);
     } finally {
       setLoading(false);
     }
   };
 
+  // Helper to get movies based on the API response
+  // We lowercase the category to match keys in curatedByMood
+  const selectedMovies = category ? curatedByMood[category.toLowerCase()] : null;
+
   return (
-    <section className="relative px-6 md:px-12 py-12 bg-gradient-to-b from-black/80 to-neutral-900">
-      {/* Title */}
-      <h2 className="text-2xl md:text-3xl font-bold text-white mb-6">
-        🎭 Mood-Based AI Recommendations
+    <section className="px-6 md:px-12 py-10 bg-neutral-900/60 backdrop-blur-md">
+      <h2 className="text-xl md:text-2xl font-semibold text-white mb-4">
+        What are you in the mood for?
       </h2>
 
-      {/* Input */}
-      <div className="flex flex-col sm:flex-row gap-3 max-w-2xl">
+      <div className="flex gap-3 max-w-xl mb-6">
         <input
-          type="text"
-          placeholder="e.g. happy, lonely, stressed, excited…"
           value={mood}
           onChange={(e) => setMood(e.target.value)}
-          className="flex-1 bg-neutral-800 text-white placeholder-gray-400 px-4 py-3 rounded-md focus:outline-none focus:ring-2 focus:ring-red-600"
+          onKeyDown={(e) => e.key === "Enter" && submitMood()} // Allows pressing Enter to search
+          placeholder="happy, sad, excited..."
+          className="flex-1 px-4 py-3 rounded bg-neutral-800 text-white outline-none focus:ring-2 focus:ring-red-600"
         />
 
         <button
           onClick={submitMood}
-          className="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-3 rounded-md transition shadow-lg"
+          disabled={loading}
+          className="bg-red-600 px-6 py-3 rounded hover:bg-red-700 transition-colors disabled:opacity-50 text-white font-medium"
         >
-          Recommend
+          {loading ? "Thinking..." : "Recommend"}
         </button>
       </div>
 
-      {/* Loading */}
-      {loading && (
-        <p className="text-gray-400 mt-4 animate-pulse">
-          Finding movies that match your mood…
-        </p>
+      {loading && <p className="text-gray-400 animate-pulse">Analyzing your mood...</p>}
+
+      {/* Show movies if the category exists in our data */}
+      {!loading && selectedMovies && (
+        <CuratedRow
+          title={`Because you feel ${category}`}
+          movies={selectedMovies}
+        />
       )}
 
-      {/* Results */}
-      {results && (
-        <div className="mt-10">
-          <h3 className="text-lg md:text-xl font-semibold text-white mb-4">
-            {results.label}
-          </h3>
-
-          {results.results.length === 0 ? (
-            <p className="text-gray-400">
-              No movies found. Try a different mood ✨
-            </p>
-          ) : (
-            <div className="flex gap-4 overflow-x-auto pb-4 scrollbar-hide">
-              {results.results.map((movie) => (
-                <div
-                  key={movie.id}
-                  className="min-w-[180px] cursor-pointer group"
-                  onClick={() => navigate(`/player/${movie.id}`)}
-                >
-                  <div className="relative overflow-hidden rounded-lg bg-neutral-800">
-                    {movie.poster_path ? (
-                      <img
-                        src={`https://image.tmdb.org/t/p/w300${movie.poster_path}`}
-                        alt={movie.title}
-                        className="w-full h-full object-cover transform group-hover:scale-110 transition duration-300"
-                      />
-                    ) : (
-                      <div className="h-[270px] flex items-center justify-center text-gray-400 text-sm">
-                        No Image
-                      </div>
-                    )}
-                  </div>
-
-                  <p className="mt-2 text-sm text-gray-200 truncate">
-                    {movie.title}
-                  </p>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+      {/* Show fallback if API returned a category we don't have in our local JSON */}
+      {!loading && category && !selectedMovies && (
+        <p className="text-gray-400">
+          The AI suggested "{category}", but we don't have recommendations for that mood yet.
+        </p>
       )}
     </section>
   );
