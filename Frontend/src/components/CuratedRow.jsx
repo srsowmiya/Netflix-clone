@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronRight, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
-const CuratedRow = ({ title, movies }) => {
+const CuratedRow = ({ title, movies = [] }) => {
   const scrollRef = useRef(null);
 
   const scroll = (direction) => {
@@ -12,6 +12,12 @@ const CuratedRow = ({ title, movies }) => {
       behavior: "smooth",
     });
   };
+
+  const validMovies = movies.filter(
+    (movie) => movie?.videoId && typeof movie.videoId === "string"
+  );
+
+  if (validMovies.length === 0) return null;
 
   return (
     <section className="mb-8 relative">
@@ -32,25 +38,36 @@ const CuratedRow = ({ title, movies }) => {
         ref={scrollRef}
         className="flex gap-4 px-4 overflow-x-auto scrollbar-hide scroll-smooth"
       >
-        {movies?.map((movie) => (
+        {validMovies.map((movie) => (
           <Link
             key={movie.videoId}
             to={`/player/${movie.videoId}`}
             className="min-w-[240px] group"
           >
             <img
-              src={`https://img.youtube.com/vi/${movie.videoId}/hqdefault.jpg`}
-              alt={movie.title}
+              src={`https://img.youtube.com/vi/${movie.videoId}/mqdefault.jpg`}
+              alt={movie.title || "Video"}
+              loading="lazy"
+              onLoad={(e) => {
+                // 🔥 Detect YouTube placeholder (3 dots image)
+                if (
+                  e.target.naturalWidth === 120 &&
+                  e.target.naturalHeight === 90
+                ) {
+                  e.target.src = "/card3.jpg";
+                }
+              }}
               onError={(e) => {
                 e.target.onerror = null;
-                e.target.src = "/card3.jpg"; // MUST be in /public
+                e.target.src = "/card3.jpg";
               }}
               className="h-36 w-full rounded-md object-cover
                          transition-transform duration-300
-                         group-hover:scale-105"
+                         group-hover:scale-105 bg-gray-800"
             />
+
             <p className="text-sm text-gray-200 mt-2 truncate">
-              {movie.title}
+              {movie.title || "Untitled"}
             </p>
           </Link>
         ))}

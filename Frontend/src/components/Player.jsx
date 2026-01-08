@@ -6,7 +6,7 @@ const Player = () => {
   const { videoId } = useParams();
   const navigate = useNavigate();
 
-  if (!videoId) {
+  if (!videoId || videoId === "undefined") {
     return (
       <div className="h-screen bg-black text-white flex items-center justify-center">
         <p>Video not found</p>
@@ -19,7 +19,8 @@ const Player = () => {
       {/* Back Button */}
       <IoMdArrowRoundBack
         onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 text-4xl text-white cursor-pointer z-10 hover:scale-110 transition"
+        className="absolute top-4 left-4 text-4xl text-white cursor-pointer z-10 
+                   hover:scale-110 transition"
       />
 
       {/* YouTube Player */}
