@@ -66,9 +66,7 @@ const CuratedRow = ({ title, movies = [] }) => {
                          group-hover:scale-105 bg-gray-800"
             />
 
-            <p className="text-sm text-gray-200 mt-2 truncate">
-              {movie.title || "Untitled"}
-            </p>
+          
           </Link>
         ))}
       </div>

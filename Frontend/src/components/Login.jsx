@@ -24,6 +24,7 @@ const Login = () => {
     <>
       <div className="flex bg-[url('/loginbg2.jpg')] bg-gradient-to-t from-black/60 via-black/30 to-transparent bg-cover bg-center min-h-screen items-center justify-center">
         <div className="flex flex-col h-120 w-90 bg-black/75 rounded">
+          
           {/* Title */}
           <h1 className="h-14 w-70 flex justify-center items-center text-2xl font-medium text-center py-6 px-6 font-sans text-white">
             Sign In
@@ -86,6 +87,17 @@ const Login = () => {
                 <input type="checkbox" id="remember" className="w-4 h-4" />
                 <label htmlFor="remember">Remember me</label>
               </div>
+            </div>
+
+            {/* Sign Up option (ADDED HERE) */}
+            <div className="w-70 text-sm text-zinc-400 text-center mt-2">
+              New to Netflix?{" "}
+              <span
+                onClick={() => navigate("/signup")}
+                className="text-white cursor-pointer hover:underline"
+              >
+                Sign up now
+              </span>
             </div>
           </form>
         </div>
