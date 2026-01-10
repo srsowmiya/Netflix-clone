@@ -6,30 +6,21 @@ const Player = () => {
   const { videoId } = useParams();
   const navigate = useNavigate();
 
-  if (!videoId || videoId === "undefined") {
-    return (
-      <div className="h-screen bg-black text-white flex items-center justify-center">
-        <p>Video not found</p>
-      </div>
-    );
-  }
-
   return (
     <div className="h-screen bg-black relative">
-      {/* Back Button */}
+      {/* Back button */}
       <IoMdArrowRoundBack
+        className="absolute top-5 left-5 text-white text-4xl cursor-pointer z-10 hover:scale-110 transition"
         onClick={() => navigate(-1)}
-        className="absolute top-4 left-4 text-4xl text-white cursor-pointer z-10 
-                   hover:scale-110 transition"
       />
 
-      {/* YouTube Player */}
+      {/* Player */}
       <iframe
-        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`}
-        title="YouTube Player"
+        className="w-full h-full"
+        src={`https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&rel=0&modestbranding=1&playsinline=1&origin=${window.location.origin}`}
+        title="YouTube player"
         allow="autoplay; encrypted-media"
         allowFullScreen
-        className="w-full h-full"
       />
     </div>
   );
