@@ -3,14 +3,11 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import os
+from openai import OpenAI
 
-# Load environment variables
+# Load env
 load_dotenv()
-
-OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-
-if not OPENAI_API_KEY:
-    print("❌ OPENAI_API_KEY not found in environment")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = FastAPI()
 
@@ -30,23 +27,29 @@ def home():
     return {"status": "Backend running"}
 
 @app.post("/ai/mood")
-def mood_classifier(data: MoodInput):
-    """
-    TEMP SIMPLE LOGIC (NO AI YET)
-    This guarantees backend stability.
-    """
+async def mood_classifier(data: MoodInput):
+    mood = data.mood
 
-    mood = data.mood.lower()
+    try:
+        response = client.chat.completions.create(
+            model="gpt-4o-mini",  # or any available model
+            messages=[
+                {
+                    "role": "system",
+                    "content": "You are a movie recommendation assistant."
+                },
+                {
+                    "role": "user",
+                    "content": f"Suggest 5 movie genres or types for this mood: {mood}"
+                }
+            ]
+        )
 
-    if any(word in mood for word in ["happy", "excited", "fun"]):
-        category = "happy"
-    elif any(word in mood for word in ["sad", "lonely", "down"]):
-        category = "sad"
-    elif any(word in mood for word in ["angry", "intense"]):
-        category = "excited"
-    else:
-        category = "relaxed"
+        result = response.choices[0].message.content
 
-    return {
-        "category": category
-    }
+        return {
+            "recommendations": result
+        }
+
+    except Exception as e:
+        return {"error": str(e)}
