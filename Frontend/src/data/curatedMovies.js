@@ -62,55 +62,113 @@ export const upcomingMovies = [
 
 export const curatedByMood = {
   happy: [
-    {
-      id: 1,
-      title: "Avengers: Infinity War",
-      videoId: "6ZfuNTqbHE8",
-    },
-    {
-      id: 2,
-      title: "Spider-Man: No Way Home",
-      videoId: "JfVOs4VSpmA",
-    },
+    { id: 101, title: "Zootopia", videoId: "jWM0ct-OLsM" },
+    { id: 102, title: "La La Land", videoId: "0pdqf4P9MB8" },
+    { id: 103, title: "The Secret Life of Walter Mitty", videoId: "QD6cy4PBQPI" },
+    { id: 104, title: "Inside Out", videoId: "seMwpP0yeu4" },
+    { id: 105, title: "Frozen", videoId: "TbQm5doF_Uc" },
+    { id: 106, title: "Paddington 2", videoId: "52x5HG2RDIQ" },
+    { id: 107, title: "The Lego Movie", videoId: "fZ_JOBCLF-I" },
+    { id: 108, title: "Sing", videoId: "Y2hQSjMfqaY" },
   ],
 
   sad: [
-    {
-      id: 3,
-      title: "Titanic",
-      videoId: "2e-eXJ6HgkQ",
-    },
-    {
-      id: 4,
-      title: "The Fault in Our Stars",
-      videoId: "9ItBvH5J6ss",
-    },
+    { id: 201, title: "Titanic", videoId: "2e-eXJ6HgkQ" },
+    { id: 202, title: "The Fault in Our Stars", videoId: "9ItBvH5J6ss" },
+    { id: 203, title: "Soul", videoId: "xOsLIiBStEs" },
+    { id: 204, title: "The Pursuit of Happyness", videoId: "89Kq8SDyvfg" },
+    { id: 205, title: "Good Will Hunting", videoId: "PaZVjZEFkRs" },
+    { id: 206, title: "A Beautiful Mind", videoId: "aS_d0Ayjw4o" },
+    { id: 207, title: "Schindler's List", videoId: "gG22XNhtnoY" },
+    { id: 208, title: "The Green Mile", videoId: "Ki4haFrqSrw" },
   ],
 
   excited: [
-    {
-      id: 5,
-      title: "John Wick",
-      videoId: "2AUmvWm5ZDQ",
-    },
-    {
-      id: 6,
-      title: "Mad Max: Fury Road",
-      videoId: "hEJnMQG9ev8",
-    },
+    { id: 301, title: "Avengers: Endgame", videoId: "TcMBFSGVi1c" },
+    { id: 302, title: "John Wick", videoId: "2AUmvWm5ZDQ" },
+    { id: 303, title: "Mad Max: Fury Road", videoId: "hEJnMQG9ev8" },
+    { id: 304, title: "Top Gun: Maverick", videoId: "qSqVVswa420" },
+    { id: 305, title: "Spider-Man: No Way Home", videoId: "JfVOs4VSpmA" },
+    { id: 306, title: "The Dark Knight", videoId: "EXeTwQWrcwY" },
+    { id: 307, title: "Inception", videoId: "YoHD9XEInc0" },
+    { id: 308, title: "Mission Impossible 7", videoId: "avz06PDqDbM" },
   ],
 
   relaxed: [
-    {
-      id: 7,
-      title: "Forrest Gump",
-      videoId: "bLvqoHBptjg",
-    },
-    {
-      id: 8,
-      title: "The Intern",
-      videoId: "ZU3Xban0Y6A",
-    },
+    { id: 401, title: "Forrest Gump", videoId: "bLvqoHBptjg" },
+    { id: 402, title: "The Intern", videoId: "ZU3Xban0Y6A" },
+    { id: 403, title: "Chef", videoId: "rD6FRDwmiyM" },
+    { id: 404, title: "The Grand Budapest Hotel", videoId: "1Fg5iWmQjwk" },
+    { id: 405, title: "Amélie", videoId: "HUECWi5pX7o" },
+    { id: 406, title: "Julie & Julia", videoId: "ozRK7VXQl-k" },
+    { id: 407, title: "The Secret Garden", videoId: "WB4kbvXHaL0" },
+    { id: 408, title: "Midnight in Paris", videoId: "atLg2wQQxvU" },
+  ],
+
+  romantic: [
+    { id: 501, title: "Titanic", videoId: "2e-eXJ6HgkQ" },
+    { id: 502, title: "The Notebook", videoId: "FC6biTjEyZw" },
+    { id: 503, title: "Me Before You", videoId: "Eh993__rOxA" },
+    { id: 504, title: "La La Land", videoId: "0pdqf4P9MB8" },
+    { id: 505, title: "Pride & Prejudice", videoId: "1dYv5u6v55Y" },
+    { id: 506, title: "A Walk to Remember", videoId: "A-8KLFnNKPw" },
+    { id: 507, title: "Crazy Rich Asians", videoId: "ZQ-YX-5bAs0" },
+    { id: 508, title: "To All the Boys I've Loved Before", videoId: "555oiY9RWM4" },
+  ],
+
+  scared: [
+    { id: 601, title: "A Quiet Place", videoId: "WR7cc5t7tv8" },
+    { id: 602, title: "Get Out", videoId: "DzfpyUB60YY" },
+    { id: 603, title: "The Conjuring", videoId: "k10ETZ41q5o" },
+    { id: 604, title: "It", videoId: "FnCdOQsX5kc" },
+    { id: 605, title: "Hereditary", videoId: "V6wWKNij_1M" },
+    { id: 606, title: "Don't Breathe", videoId: "76yBTNDB6vU" },
+    { id: 607, title: "The Shining", videoId: "5Cb3ik6zP2I" },
+    { id: 608, title: "Midsommar", videoId: "1Vnghdsjmd0" },
+  ],
+
+  nostalgic: [
+    { id: 701, title: "The Lion King", videoId: "7TavVZMewpY" },
+    { id: 702, title: "E.T. the Extra-Terrestrial", videoId: "qYAETtIIClk" },
+    { id: 703, title: "Back to the Future", videoId: "qvsgGtivCgs" },
+    { id: 704, title: "Home Alone", videoId: "jEDaVHoEJfM" },
+    { id: 705, title: "Jurassic Park", videoId: "lc0UehYemQA" },
+    { id: 706, title: "The Breakfast Club", videoId: "BSXBvor47Zs" },
+    { id: 707, title: "Toy Story", videoId: "v-PjgYDrg70" },
+    { id: 708, title: "Harry Potter and the Sorcerer's Stone", videoId: "VyHV0BRtdxo" },
+  ],
+
+  adventurous: [
+    { id: 801, title: "Indiana Jones: Raiders of the Lost Ark", videoId: "XkkzKHCx154" },
+    { id: 802, title: "The Lord of the Rings", videoId: "V75dMMIW2B4" },
+    { id: 803, title: "Pirates of the Caribbean", videoId: "naQr0uTrH_s" },
+    { id: 804, title: "Jumanji: Welcome to the Jungle", videoId: "2QKg5SZ_35I" },
+    { id: 805, title: "Avatar", videoId: "5PSNL1qE6VY" },
+    { id: 806, title: "Dune: Part Two", videoId: "Way9Dexny3w" },
+    { id: 807, title: "Guardians of the Galaxy", videoId: "d96cjJhvlMA" },
+    { id: 808, title: "Black Panther", videoId: "xjDjIWPwcPU" },
+  ],
+
+  funny: [
+    { id: 901, title: "The Hangover", videoId: "tcdUhdOlz9M" },
+    { id: 902, title: "Superbad", videoId: "4eaZ_48ZYog" },
+    { id: 903, title: "Bridesmaids", videoId: "FNppLrmdyug" },
+    { id: 904, title: "Deadpool", videoId: "ONHBaC-pfsk" },
+    { id: 905, title: "The Grand Budapest Hotel", videoId: "1Fg5iWmQjwk" },
+    { id: 906, title: "Knives Out", videoId: "qGqiGp562-Y" },
+    { id: 907, title: "21 Jump Street", videoId: "RLoKtb4c4W0" },
+    { id: 908, title: "Game Night", videoId: "qmxMAdV6s4U" },
+  ],
+
+  inspiring: [
+    { id: 1001, title: "The Shawshank Redemption", videoId: "6hB3S9bIaco" },
+    { id: 1002, title: "Rocky", videoId: "7RYpJAYqEW8" },
+    { id: 1003, title: "Interstellar", videoId: "zSWdZVtXT7E" },
+    { id: 1004, title: "The Pursuit of Happyness", videoId: "89Kq8SDyvfg" },
+    { id: 1005, title: "Whiplash", videoId: "7d_jQycdQGo" },
+    { id: 1006, title: "Dead Poets Society", videoId: "ye44dRO0fco" },
+    { id: 1007, title: "Hidden Figures", videoId: "RK8xHq6dfAo" },
+    { id: 1008, title: "The Martian", videoId: "ej3ioOneTy8" },
   ],
 };
 

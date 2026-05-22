@@ -42,5 +42,95 @@ import image12 from '../assets/card12.webp'
 
     ]
 
+    export const curatedByMood = {
+  happy: [
+    {
+      title: "Zootopia",
+      videoId: "jWM0ct-OLsM"
+    },
+    {
+      title: "La La Land",
+      videoId: "0pdqf4P9MB8"
+    },
+    {
+      title: "The Secret Life of Walter Mitty",
+      videoId: "QD6cy4PBQPI"
+    },
+    {
+      title: "Inside Out",
+      videoId: "seMwpP0yeu4"
+    },
+    {
+      title: "Frozen",
+      videoId: "TbQm5doF_Uc"
+    }
+  ],
+
+  sad: [
+    {
+      title: "Soul",
+      videoId: "xOsLIiBStEs"
+    },
+    {
+      title: "The Pursuit of Happyness",
+      videoId: "89Kq8SDyvfg"
+    },
+    {
+      title: "Good Will Hunting",
+      videoId: "PaZVjZEFkRs"
+    },
+    {
+      title: "A Beautiful Mind",
+      videoId: "aS_d0Ayjw4o"
+    },
+    {
+      title: "Inside Out",
+      videoId: "seMwpP0yeu4"
+    }
+  ],
+
+  excited: [
+    {
+      title: "Avengers Endgame",
+      videoId: "TcMBFSGVi1c"
+    },
+    {
+      title: "John Wick",
+      videoId: "2AUmvWm5ZDQ"
+    },
+    {
+      title: "Mad Max Fury Road",
+      videoId: "hEJnMQG9ev8"
+    },
+    {
+      title: "Interstellar",
+      videoId: "zSWdZVtXT7E"
+    },
+    {
+      title: "Top Gun Maverick",
+      videoId: "qSqVVswa420"
+    }
+  ],
+
+  romantic: [
+    {
+      title: "Titanic",
+      videoId: "2e-eXJ6HgkQ"
+    },
+    {
+      title: "The Notebook",
+      videoId: "FC6biTjEyZw"
+    },
+    {
+      title: "Me Before You",
+      videoId: "Eh993__rOxA"
+    },
+    {
+      title: "La La Land",
+      videoId: "0pdqf4P9MB8"
+    }
+  ]
+};
+
 
 export default cards;

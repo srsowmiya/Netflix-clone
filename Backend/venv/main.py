@@ -1,55 +1,93 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from dotenv import load_dotenv
-import os
-from openai import OpenAI
-
-# Load env
-load_dotenv()
-client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 app = FastAPI()
 
+# Allow React frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Request schema
 class MoodInput(BaseModel):
     mood: str
 
+
 @app.get("/")
 def home():
-    return {"status": "Backend running"}
+    return {
+        "status": "Backend running"
+    }
+
 
 @app.post("/ai/mood")
 async def mood_classifier(data: MoodInput):
-    mood = data.mood
 
-    try:
-        response = client.chat.completions.create(
-            model="gpt-4o-mini",  # or any available model
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a movie recommendation assistant."
-                },
-                {
-                    "role": "user",
-                    "content": f"Suggest 5 movie genres or types for this mood: {mood}"
-                }
+    mood = data.mood.lower()
+
+    recommendations = {
+        "happy": [
+            "Zootopia",
+            "La La Land",
+            "The Secret Life of Walter Mitty",
+            "Inside Out",
+            "Frozen"
+        ],
+
+        "sad": [
+            "Soul",
+            "The Pursuit of Happyness",
+            "Good Will Hunting",
+            "A Beautiful Mind",
+            "Inside Out"
+        ],
+
+        "excited": [
+            "Avengers Endgame",
+            "John Wick",
+            "Mad Max: Fury Road",
+            "Interstellar",
+            "Top Gun Maverick"
+        ],
+
+        "romantic": [
+            "Titanic",
+            "The Notebook",
+            "La La Land",
+            "Me Before You",
+            "Pride and Prejudice"
+        ],
+
+        "stressed": [
+            "Soul",
+            "Kung Fu Panda",
+            "The Secret Life of Walter Mitty",
+            "Up",
+            "Ratatouille"
+        ],
+
+        "bored": [
+            "Inception",
+            "Interstellar",
+            "The Dark Knight",
+            "Ready Player One",
+            "Shutter Island"
+        ]
+    }
+
+    return {
+        "mood": mood,
+        "recommendations": recommendations.get(
+            mood,
+            [
+                "Inception",
+                "Interstellar",
+                "The Dark Knight"
             ]
         )
-
-        result = response.choices[0].message.content
-
-        return {
-            "recommendations": result
-        }
-
-    except Exception as e:
-        return {"error": str(e)}
+    }
