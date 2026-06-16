@@ -16,7 +16,7 @@ const MoodRecommender = () => {
 
     try {
       const res = await axios.post(
-        "https://netflix-clone-oxc9.onrender.com",
+        "https://netflix-clone-oxc9.onrender.com/ai/mood",
         {
           mood: mood.toLowerCase().trim(),
         }
