@@ -9,32 +9,30 @@ const Signup = () => {
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    try {
-      await signup(name, email, password);
+  console.log("Signup started");
 
-      alert("✅ Account created successfully!");
+  try {
+    const user = await signup(name, email, password);
 
-      setName("");
-      setEmail("");
-      setPassword("");
+    console.log("User created:", user);
 
-      navigate("/login");
+    alert("Account created successfully!");
 
-    } catch (error) {
-      console.error("❌ Signup error:", error);
+    navigate("/");
 
-      if (error.code === "auth/email-already-in-use") {
-        alert("Email already exists. Please login.");
-      } else if (error.code === "auth/weak-password") {
-        alert("Password should be at least 6 characters.");
-      } else {
-        alert(error.message);
-      }
+  } catch (error) {
+    console.error("Signup failed:", error);
+
+    if (error.code === "auth/email-already-in-use") {
+      alert("Email already exists. Please login.");
+    } else {
+      alert(error.message);
     }
-  };
+  }
+};
 
   return (
     <div className="flex bg-[url('/loginbg2.jpg')] bg-gradient-to-t from-black/60 via-black/30 to-transparent bg-cover bg-center min-h-screen items-center justify-center">
@@ -100,7 +98,6 @@ const Signup = () => {
             </p>
           </div>
         </form>
-
       </div>
     </div>
   );

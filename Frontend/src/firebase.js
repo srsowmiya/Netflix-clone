@@ -14,7 +14,7 @@ import {
 } from "firebase/firestore";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBD5ifL8zRZIDmGoW0UqUrumXJCoN4E0TI",
+  apiKey: import.meta.env.VITE_API_KEY,
   authDomain: "netflix-clone-87d0b.firebaseapp.com",
   projectId: "netflix-clone-87d0b",
   storageBucket: "netflix-clone-87d0b.firebasestorage.app",
@@ -28,18 +28,16 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 
-export const signup = async (
-  name,
-  email,
-  password
-) => {
+export const signup = async (name, email, password) => {
+  console.log("Step 1");
 
-  const res =
-    await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+  const res = await createUserWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
+
+  console.log("Step 2");
 
   const user = res.user;
 
@@ -47,30 +45,26 @@ export const signup = async (
     displayName: name,
   });
 
-  await addDoc(
-    collection(db, "users"),
-    {
-      uid: user.uid,
-      name,
-      email,
-      authProvider: "local",
-    }
-  );
+  console.log("Step 3");
+
+  await addDoc(collection(db, "users"), {
+    uid: user.uid,
+    name,
+    email,
+    authProvider: "local",
+  });
+
+  console.log("Step 4");
 
   return user;
 };
 
-export const login = async (
-  email,
-  password
-) => {
-
-  const res =
-    await signInWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+export const login = async (email, password) => {
+  const res = await signInWithEmailAndPassword(
+    auth,
+    email,
+    password
+  );
 
   return res.user;
 };
