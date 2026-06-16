@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../firebase";
 
 const Signup = () => {
@@ -7,93 +7,103 @@ const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
       await signup(name, email, password);
-      console.log("✅ Signed up successfully!");
-      // TODO: redirect to login or home page
+
+      alert("✅ Account created successfully!");
+
+      setName("");
+      setEmail("");
+      setPassword("");
+
+      navigate("/login");
+
     } catch (error) {
-      console.error("❌ Signup error:", error.message);
-      alert(error.message);
+      console.error("❌ Signup error:", error);
+
+      if (error.code === "auth/email-already-in-use") {
+        alert("Email already exists. Please login.");
+      } else if (error.code === "auth/weak-password") {
+        alert("Password should be at least 6 characters.");
+      } else {
+        alert(error.message);
+      }
     }
   };
 
   return (
-    <>
-      <div className="flex bg-[url('/loginbg2.jpg')] bg-gradient-to-t from-black/60 via-black/30 to-transparent bg-cover bg-center min-h-screen items-center justify-center">
-        <div className="flex flex-col h-100 w-90 bg-black/75 rounded">
-          
-          {/* Title */}
-          <h1 className="h-14 w-70 flex justify-center items-center text-2xl font-medium text-center py-6 px-6 font-sans text-white">
-            Sign Up
-          </h1>
+    <div className="flex bg-[url('/loginbg2.jpg')] bg-gradient-to-t from-black/60 via-black/30 to-transparent bg-cover bg-center min-h-screen items-center justify-center">
+      <div className="flex flex-col h-100 w-90 bg-black/75 rounded">
 
-          {/* Form */}
-          <form 
-            onSubmit={handleSubmit}
-            className="px-10 flex flex-col justify-center items-center gap-5 font-sans text-white"
+        <h1 className="h-14 w-70 flex justify-center items-center text-2xl font-medium text-center py-6 px-6 font-sans text-white">
+          Sign Up
+        </h1>
+
+        <form
+          onSubmit={handleSubmit}
+          className="px-10 flex flex-col justify-center items-center gap-5 font-sans text-white"
+        >
+          <div className="flex items-center h-10 w-70 bg-zinc-800 rounded px-3">
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              type="text"
+              placeholder="Your Name"
+              className="bg-transparent outline-none w-full text-center"
+              required
+            />
+          </div>
+
+          <div className="flex items-center h-10 w-70 bg-zinc-800 rounded px-3">
+            <input
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              type="email"
+              placeholder="Email"
+              className="bg-transparent outline-none w-full text-center"
+              required
+            />
+          </div>
+
+          <div className="flex items-center h-10 w-70 bg-zinc-800 rounded px-3">
+            <input
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              type="password"
+              placeholder="Password"
+              className="bg-transparent outline-none w-full text-center"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="bg-red-500 h-10 w-70 rounded flex justify-center items-center"
           >
-            {/* Name */}
-            <div className="flex items-center h-10 w-70 bg-zinc-800 rounded px-3">
-              <input 
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                type="text" 
-                placeholder="Your Name" 
-                className="bg-transparent outline-none focus:ring-0 w-full text-center"
-                required
-              />
-            </div>
+            Sign Up
+          </button>
 
-            {/* Email */}
-            <div className="flex items-center h-10 w-70 bg-zinc-800 rounded px-3">
-              <input 
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                type="email" 
-                placeholder="Email" 
-                className="bg-transparent outline-none focus:ring-0 w-full text-center"
-                required
-              />
-            </div>
-
-            {/* Password */}
-            <div className="flex items-center h-10 w-70 bg-zinc-800 rounded px-3">
-              <input 
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                type="password" 
-                placeholder="Password" 
-                className="bg-transparent outline-none focus:ring-0 w-full text-center"
-                required
-              />
-            </div>
-
-            {/* Signup Button */}
-            <div className="border-red-500 bg-red-500 h-10 w-70 rounded flex justify-center items-center">
-              <button 
-                type="submit"
-                className="border-red-500 bg-red-500 flex justify-center items-center rounded w-full h-full"
+          <div className="h-6 w-70 flex justify-center mt-2 text-sm">
+            <p>
+              Already have an account?{" "}
+              <Link
+                to="/login"
+                className="text-red-500 hover:underline"
               >
-                Sign Up
-              </button>
-            </div>
+                Sign In
+              </Link>
+            </p>
+          </div>
+        </form>
 
-            {/* Already have account */}
-            <div className="h-6 w-70 flex justify-center mt-2 text-sm">
-              <p>
-                Already have an account?{" "}
-                <Link to="/login" className="text-red-500 hover:underline">
-                  Sign In
-                </Link>
-              </p>
-            </div>
-          </form>
-        </div>
       </div>
-    </>
-  )
-}
+    </div>
+  );
+};
 
 export default Signup;
